@@ -3,165 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Min Dev Portfolio | Projekt & Tutorials</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Min Dev Space</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons (för snygga ikoner) -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .filter-active { @apply bg-indigo-600 text-white shadow-lg shadow-indigo-200; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Smidig övergång när innehåll laddas */
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-link-active { @apply text-indigo-600 border-b-2 border-indigo-600; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased">
+<body class="bg-slate-50 text-slate-900 overflow-x-hidden">
 
-    <!-- NAVIGATION -->
-    <nav class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
-        <div class="flex items-center gap-2 font-extrabold text-xl tracking-tighter">
-            <div class="bg-indigo-600 p-1.5 rounded-lg text-white">
-                <i data-lucide="terminal" class="w-6 h-6"></i>
+    <!-- NAVBAR (Permanent) -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-200 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
+            <a href="#home" class="flex items-center gap-2 font-black text-lg tracking-tighter">
+                <div class="bg-indigo-600 p-1 rounded text-white"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                <span>DEV<span class="text-indigo-600">SPACE</span></span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex gap-8 font-bold text-sm">
+                <a href="#home" class="nav-item py-5 hover:text-indigo-600 transition">Hem</a>
+                <a href="#projects" class="nav-item py-5 hover:text-indigo-600 transition">Projekt</a>
+                <a href="#tutorials" class="nav-item py-5 hover:text-indigo-600 transition">Tutorials</a>
             </div>
-            <span>DEV<span class="text-indigo-600">PORTFOLIO</span></span>
+
+            <a href="https://github.com" class="bg-slate-900 text-white p-2 rounded-full hover:bg-indigo-600 transition">
+                <i data-lucide="github" class="w-5 h-5"></i>
+            </a>
         </div>
-        <a href="https://github.com/DITT-NAMN" target="_blank" class="text-slate-500 hover:text-indigo-600 transition-colors">
-            <i data-lucide="github" class="w-6 h-6"></i>
-        </a>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="max-w-6xl mx-auto px-6 py-12 md:py-24">
-        <div class="max-w-3xl">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
-                Bygger saker. <br>
-                <span class="text-indigo-600 underline decoration-indigo-200">Skriver guider.</span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 leading-relaxed mb-10">
-                Välkommen! Här samlar jag mina open-source projekt och tekniska tutorials. 
-                Allt är byggt med fokus på prestanda och användarvänlighet.
-            </p>
-
-            <!-- FILTRERINGSKNAPPAR -->
-            <div class="flex flex-wrap gap-3" id="filter-container">
-                <button onclick="filterContent('all')" id="btn-all" class="filter-btn px-6 py-2.5 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:border-indigo-400 transition-all filter-active">
-                    Visa Allt
-                </button>
-                <button onclick="filterContent('project')" id="btn-project" class="filter-btn px-6 py-2.5 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:border-indigo-400 transition-all">
-                    Projekt
-                </button>
-                <button onclick="filterContent('tutorial')" id="btn-tutorial" class="filter-btn px-6 py-2.5 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:border-indigo-400 transition-all">
-                    Tutorials
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- GRID SECTION -->
-    <main class="max-w-6xl mx-auto px-6 pb-24">
-        <div id="content-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Innehåll renderas här av JavaScript -->
-        </div>
+    <!-- HUVUDCONTAINER (Här laddas undersidorna in) -->
+    <main id="router-view" class="pt-24 min-h-screen">
+        <!-- Innehåll renderas här -->
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-slate-200 bg-white">
-        <div class="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-slate-500 text-sm italic">
-                &copy; <span id="year"></span> Kodat för hand. Hostat på GitHub Pages.
-            </p>
-            <div class="flex gap-4">
-                <a href="#" class="text-slate-400 hover:text-indigo-600 transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                <a href="#" class="text-slate-400 hover:text-indigo-600 transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-            </div>
-        </div>
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12 text-center">
+        <p class="text-slate-400 text-sm">Byggt med statisk HTML & Vanilla JS</p>
     </footer>
 
-    <!-- JAVASCRIPT FÖR DATA OCH FILTRERING -->
+    <!-- JAVASCRIPT FÖR ROUTING & INNEHÅLL -->
     <script>
-        // 1. Din data (Här lägger du till dina egna projekt/tutorials)
-        const db = [
-            {
-                title: "Väder-app med API",
-                desc: "En mobilanpassad väder-app som använder OpenWeather API och CSS Glassmorphism.",
-                type: "project",
-                tags: ["JS", "API", "CSS"],
-                url: "#"
-            },
-            {
-                title: "Grunderna i GitHub Actions",
-                desc: "Lär dig automatisera din deployment till GitHub Pages på under 5 minuter.",
-                type: "tutorial",
-                tags: ["DevOps", "CI/CD"],
-                url: "#"
-            },
-            {
-                title: "E-handel UI Kit",
-                desc: "Ett modernt bibliotek för knappar, inputs och varukorgar byggt med Tailwind.",
-                type: "project",
-                tags: ["Design", "Tailwind"],
-                url: "#"
-            },
-            {
-                title: "Optimera Bilder för Webb",
-                desc: "En tutorial om WebP, lazy loading och hur du får 100 poäng på Lighthouse.",
-                type: "tutorial",
-                tags: ["Prestanda", "Webb"],
-                url: "#"
-            }
+        // 1. Sid-mallar (Templates)
+        const pages = {
+            home: `
+                <div class="max-w-4xl mx-auto px-6 fade-in text-center py-20">
+                    <h1 class="text-6xl font-black mb-6 tracking-tight">Välkommen till mitt <span class="text-indigo-600">Dev Space</span></h1>
+                    <p class="text-xl text-slate-600 mb-10 leading-relaxed">Här hittar du allt från djupdykningar i kod till färdiga open-source projekt.</p>
+                    <div class="flex justify-center gap-4">
+                        <a href="#projects" class="bg-indigo-600 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-indigo-200 hover:scale-105 transition">Se Projekt</a>
+                        <a href="#tutorials" class="bg-white border border-slate-200 px-8 py-3 rounded-full font-bold hover:bg-slate-50 transition">Läs Tutorials</a>
+                    </div>
+                </div>
+            `,
+            projects: `
+                <div class="max-w-6xl mx-auto px-6 fade-in">
+                    <h2 class="text-4xl font-black mb-10 tracking-tight">Mina Projekt</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-list">
+                        <!-- Projekt renderas här -->
+                    </div>
+                </div>
+            `,
+            tutorials: `
+                <div class="max-w-6xl mx-auto px-6 fade-in">
+                    <h2 class="text-4xl font-black mb-10 tracking-tight">Tutorials</h2>
+                    <div class="space-y-4" id="tutorials-list">
+                        <!-- Tutorials renderas här -->
+                    </div>
+                </div>
+            `
+        };
+
+        // 2. Data
+        const contentData = [
+            { title: "React Dashboard", type: "projects", desc: "En admin-panel byggd med Tailwind.", link: "#" },
+            { title: "Väder API", type: "projects", desc: "Hämta väder i realtid med Fetch API.", link: "#" },
+            { title: "Intro till HTML", type: "tutorials", desc: "Lär dig grunderna i webbutveckling.", link: "#" },
+            { title: "CSS Flexbox Guide", type: "tutorials", desc: "Allt du behöver veta om Flexbox.", link: "#" }
         ];
 
-        const grid = document.getElementById('content-grid');
-
-        // 2. Funktion för att rendera korten
-        function renderCards(filter = 'all') {
-            grid.innerHTML = '';
+        // 3. Router-funktion
+        function router() {
+            // Hämta hash från URL (t.ex. #projects), standard är #home
+            const hash = window.location.hash.replace('#', '') || 'home';
+            const view = document.getElementById('router-view');
             
-            const filtered = filter === 'all' ? db : db.filter(item => item.type === filter);
+            // Uppdatera innehåll
+            view.innerHTML = pages[hash] || `<h1>404 - Sidan hittades inte</h1>`;
 
-            filtered.forEach(item => {
-                const icon = item.type === 'project' ? 'code' : 'book-open';
-                const colorClass = item.type === 'project' ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600';
-                
-                const card = `
-                    <div class="group bg-white rounded-3xl p-8 border border-slate-200 hover:shadow-2xl hover:shadow-indigo-100 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 rounded-2xl ${colorClass}">
-                                <i data-lucide="${icon}" class="w-6 h-6"></i>
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">${item.type}</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 group-hover:text-indigo-600 transition-colors">${item.title}</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6 flex-grow italic">"${item.desc}"</p>
-                        <div class="flex flex-wrap gap-2 mb-6 text-[11px] font-bold text-slate-500 uppercase">
-                            ${item.tags.map(tag => `<span class="bg-slate-100 px-2 py-1 rounded tracking-wider">${tag}</span>`).join('')}
-                        </div>
-                        <a href="${item.url}" class="flex items-center gap-2 text-indigo-600 font-bold text-sm group-hover:gap-4 transition-all">
-                            Visa Innehåll <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                `;
-                grid.innerHTML += card;
-            });
+            // Om vi är på projekt- eller tutorial-sidan, fyll den med data
+            if (hash === 'projects') renderContent('projects', 'projects-list');
+            if (hash === 'tutorials') renderContent('tutorials', 'tutorials-list');
+
+            // Uppdatera nav-länkar (styling)
+            updateNav(hash);
             
-            // Uppdatera ikonerna efter rendering
+            // Re-initiera ikoner
             lucide.createIcons();
-        }
-
-        // 3. Funktion för att hantera filtrering och knapp-stilar
-        function filterContent(type) {
-            renderCards(type);
             
-            // Uppdatera knappar
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('filter-active');
-            });
-            document.getElementById(`btn-${type}`).classList.add('filter-active');
+            // Scrolla till toppen vid sidbyte
+            window.scrollTo(0, 0);
         }
 
-        // Initiera
-        renderCards();
-        document.getElementById('year').textContent = new Date().getFullYear();
-        lucide.createIcons();
+        // 4. Funktion för att rendera listor
+        function renderContent(type, containerId) {
+            const container = document.getElementById(containerId);
+            const items = contentData.filter(item => item.type === type);
+            
+            container.innerHTML = items.map(item => `
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-indigo-400 transition shadow-sm">
+                    <h3 class="text-xl font-bold mb-2">${item.title}</h3>
+                    <p class="text-slate-600 mb-4">${item.desc}</p>
+                    <a href="${item.link}" class="text-indigo-600 font-bold inline-flex items-center gap-2">
+                        Läs mer <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        // 5. Highlighta aktiv länk i navbaren
+        function updateNav(activeHash) {
+            document.querySelectorAll('.nav-item').forEach(link => {
+                const linkHash = link.getAttribute('href').replace('#', '');
+                if(linkHash === activeHash) {
+                    link.classList.add('nav-link-active');
+                } else {
+                    link.classList.remove('nav-link-active');
+                }
+            });
+        }
+
+        // 6. Lyssna på ändringar i URL:en
+        window.addEventListener('hashchange', router);
+        window.addEventListener('load', router);
+
     </script>
 </body>
 </html>
