@@ -3,178 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevSpace | Portfölj</title>
+    <title>DevSpace | Portfolio & Tutorials</title>
+    
+    <!-- Tailwind & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.3s; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
         .fade-in { animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
         .nav-link-active { @apply text-indigo-600 border-b-2 border-indigo-600; }
+        
+        /* Glassmorphism utility */
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-200 z-50">
+    <!-- NAVBAR (Fast position) -->
+    <nav class="fixed top-0 w-full glass border-b border-slate-200 z-50">
         <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
-            <a href="#home" class="flex items-center gap-2 font-black text-lg tracking-tighter">
-                <div class="bg-indigo-600 p-1 rounded text-white"><i data-lucide="zap" class="w-5 h-5"></i></div>
+            <a href="#home" class="flex items-center gap-2 font-black text-xl tracking-tighter hover:opacity-80 transition">
+                <div class="bg-indigo-600 p-1.5 rounded-lg text-white">
+                    <i data-lucide="terminal" class="w-5 h-5"></i>
+                </div>
                 <span>DEV<span class="text-indigo-600">SPACE</span></span>
             </a>
+            
             <div class="hidden md:flex gap-8 font-bold text-sm">
-                <a href="#home" class="nav-item py-5 hover:text-indigo-600 transition">Hem</a>
-                <a href="#projects" class="nav-item py-5 hover:text-indigo-600 transition">Projekt</a>
-                <a href="#tutorials" class="nav-item py-5 hover:text-indigo-600 transition">Tutorials</a>
+                <a href="#home" class="nav-item py-5 transition hover:text-indigo-600">Hem</a>
+                <a href="#projects" class="nav-item py-5 transition hover:text-indigo-600">Projekt</a>
+                <a href="#tutorials" class="nav-item py-5 transition hover:text-indigo-600">Tutorials</a>
             </div>
-            <a href="https://github.com" class="p-2 hover:bg-slate-100 rounded-full transition"><i data-lucide="github" class="w-5 h-5"></i></a>
+
+            <div class="flex items-center gap-4">
+                <a href="https://github.com" class="text-slate-400 hover:text-slate-900 transition">
+                    <i data-lucide="github" class="w-6 h-6"></i>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- ROUTER VIEW -->
+    <!-- ROUTER VIEW (Här laddas allt innehåll) -->
     <main id="router-view" class="pt-24 min-h-screen">
-        <!-- Innehåll laddas här -->
+        <div class="flex items-center justify-center h-64 text-slate-400">
+            Laddar...
+        </div>
     </main>
 
-    <footer class="py-10 text-center text-slate-400 text-xs border-t border-slate-200 mt-20">
-        &copy; 2024 DevSpace - Statisk SPA Arkitektur
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-200 bg-white py-12 mt-20">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-slate-400 text-sm">© 2024 Designat för GitHub Pages.</p>
+            <div class="flex gap-6 text-slate-400">
+                <i data-lucide="cpu" class="w-5 h-5"></i>
+                <i data-lucide="code-2" class="w-5 h-5"></i>
+                <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // 1. DATA (Här definierar du allt innehåll)
+        // --- 1. DATABAS ---
         const contentDB = {
             projects: [
                 { 
-                    slug: "weather-app", 
-                    title: "Väder App Pro", 
-                    desc: "En avancerad väder-app med realtidsdata.",
-                    longDesc: "Detta projekt använder OpenWeather API för att visa prognoser. Jag fokuserade mycket på 'Glassmorphism' i designen och optimerade prestandan genom caching.",
-                    tech: ["React", "Tailwind", "API"],
-                    github: "#"
+                    slug: "esp32", 
+                    title: "ESP32 IoT Sensor", 
+                    desc: "Hämta realtidsdata via Wi-Fi med ESP32.",
+                    isExternal: true // Denna laddas från projects/esp32.html
                 },
                 { 
-                    slug: "task-manager", 
-                    title: "Task Manager", 
-                    desc: "Håll koll på dina projekt med denna Kanban-tavla.",
-                    longDesc: "En fullständig Task Manager där du kan dra och släppa uppgifter. Byggd för att utforska LocalStorage och drag-and-drop funktionalitet.",
-                    tech: ["JavaScript", "CSS Grid", "LocalDB"],
-                    github: "#"
+                    slug: "portfolio-site", 
+                    title: "Denna Webbplats", 
+                    desc: "Byggd med Vanilla JS och en custom router.",
+                    isExternal: false,
+                    longDesc: "Detta projekt skapades för att visa hur man bygger en SPA (Single Page Application) utan tunga ramverk som React.",
+                    tech: ["HTML5", "Tailwind", "JavaScript"]
                 }
             ],
             tutorials: [
                 { 
-                    slug: "intro-tailwind", 
-                    title: "Kom igång med Tailwind", 
-                    desc: "Lär dig utility-first CSS från grunden.",
-                    body: "Tailwind CSS är fantastiskt för att bygga snabba gränssnitt... [Här kan du skriva hela guiden]"
+                    slug: "git-guide", 
+                    title: "Git för Nybörjare", 
+                    desc: "Lär dig branchning och pull requests.",
+                    isExternal: false,
+                    body: "Här kommer en lång guide om Git..."
                 }
             ]
         };
 
-        // 2. ROUTER LOGIK
-        function router() {
-            const hash = window.location.hash.replace('#', '') || 'home';
+        // --- 2. ROUTER LOGIK ---
+        async function handleRoute() {
             const view = document.getElementById('router-view');
-            
-            // Dela upp hashen: [mapp, undersida] (t.ex. ["projects", "weather-app"])
+            const hash = window.location.hash.replace('#', '') || 'home';
             const [path, slug] = hash.split('/');
 
-            // -- LOGIK FÖR UNDERSIDA (t.ex. #projects/weather-app) --
+            // Markera aktiv länk i nav
+            updateNav(path);
+
+            // A. UNDERSIDA (t.ex. #projects/esp32)
             if (slug && contentDB[path]) {
                 const item = contentDB[path].find(i => i.slug === slug);
+                
                 if (item) {
-                    view.innerHTML = renderDetailPage(item, path);
-                    updateNav(path);
-                    lucide.createIcons();
-                    window.scrollTo(0, 0);
-                    return;
+                    if (item.isExternal) {
+                        // HÄMTA EXTERN FIL
+                        view.innerHTML = `<div class="max-w-3xl mx-auto px-6 py-20 text-slate-400">Laddar fil...</div>`;
+                        try {
+                            const response = await fetch(`projects/${slug}.html`);
+                            if (!response.ok) throw new Error("Fil saknas");
+                            const html = await response.text();
+                            view.innerHTML = `<div class="fade-in">${html}</div>`;
+                        } catch (err) {
+                            view.innerHTML = renderError("Kunde inte ladda den externa filen.");
+                        }
+                    } else {
+                        // RENDERA FRÅN JS-DATA
+                        view.innerHTML = renderDetailPage(item, path);
+                    }
+                } else {
+                    view.innerHTML = renderError("Sidan hittades inte.");
                 }
-            }
-
-            // -- LOGIK FÖR HUVUDSIDOR --
-            if (path === 'home') {
-                view.innerHTML = `
-                    <div class="max-w-4xl mx-auto px-6 py-20 text-center fade-in">
-                        <h1 class="text-6xl font-black mb-6 tracking-tight">Skapar framtiden med <span class="text-indigo-600">kod.</span></h1>
-                        <p class="text-xl text-slate-600 mb-10 leading-relaxed italic underline decoration-indigo-100 italic">Utforska mina senaste projekt och guider nedan.</p>
-                        <div class="flex justify-center gap-4">
-                            <a href="#projects" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-600 transition">Mina Projekt</a>
-                        </div>
-                    </div>`;
             } 
-            else if (path === 'projects') {
-                view.innerHTML = renderListPage('Mina Projekt', contentDB.projects, 'projects');
+            // B. HUVUDSIDOR
+            else if (path === 'home') {
+                view.innerHTML = renderHome();
             } 
-            else if (path === 'tutorials') {
-                view.innerHTML = renderListPage('Tutorials', contentDB.tutorials, 'tutorials');
+            else if (path === 'projects' || path === 'tutorials') {
+                view.innerHTML = renderListPage(path === 'projects' ? 'Mina Projekt' : 'Tutorials', contentDB[path], path);
             } 
             else {
-                view.innerHTML = `<div class="text-center py-20 italic">404 - Sidan hittades inte</div>`;
+                view.innerHTML = renderError("404 - Sidan finns inte.");
             }
 
-            updateNav(path);
+            // Uppdatera ikoner och scrolla upp
             lucide.createIcons();
             window.scrollTo(0, 0);
         }
 
-        // 3. TEMPLATES (MALLAR)
+        // --- 3. TEMPLATES (HTML-MALLAR) ---
 
-        // Mall för listan (Projekt-sidan eller Tutorial-sidan)
+        function renderHome() {
+            return `
+                <div class="max-w-4xl mx-auto px-6 py-20 md:py-32 text-center fade-in">
+                    <span class="bg-indigo-100 text-indigo-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase">Tillgänglig för uppdrag</span>
+                    <h1 class="text-6xl md:text-8xl font-black mt-8 mb-8 tracking-tighter">Code. Create. <span class="text-indigo-600 italic">Repeat.</span></h1>
+                    <p class="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed text-italic underline decoration-indigo-200 underline-offset-8">Välkommen till min digitala trädgård där jag delar med mig av allt jag bygger.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#projects" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-indigo-600 transition-all flex items-center gap-2">Utforska Projekt <i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+            `;
+        }
+
         function renderListPage(title, items, path) {
             return `
                 <div class="max-w-6xl mx-auto px-6 fade-in">
-                    <h1 class="text-4xl font-black mb-12 tracking-tight">${title}</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <h1 class="text-5xl font-black mb-12 tracking-tight">${title}</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         ${items.map(item => `
-                            <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition-all group">
-                                <h3 class="text-2xl font-bold mb-3">${item.title}</h3>
-                                <p class="text-slate-500 mb-6">${item.desc}</p>
-                                <a href="#${path}/${item.slug}" class="inline-flex items-center gap-2 text-indigo-600 font-bold group-hover:gap-4 transition-all">
-                                    Läs mer <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                                </a>
-                            </div>
+                            <a href="#${path}/${item.slug}" class="group bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-400 hover:shadow-2xl hover:shadow-indigo-100 transition-all duration-300 flex flex-col h-full">
+                                <div class="mb-6 bg-slate-50 w-12 h-12 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                    <i data-lucide="${path === 'projects' ? 'layers' : 'book-open'}" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-4">${item.title}</h3>
+                                <p class="text-slate-500 leading-relaxed flex-grow italic">"${item.desc}"</p>
+                                <div class="mt-8 flex items-center gap-2 text-indigo-600 font-bold text-sm">
+                                    Visa mer <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                                </div>
+                            </a>
                         `).join('')}
                     </div>
-                </div>`;
+                </div>
+            `;
         }
 
-        // Mall för en specifik projektsida / undersida
         function renderDetailPage(item, path) {
             return `
                 <div class="max-w-3xl mx-auto px-6 fade-in pb-20">
-                    <a href="#${path}" class="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 mb-8 transition">
+                    <a href="#${path}" class="text-slate-400 hover:text-indigo-600 font-bold flex items-center gap-2 mb-10 transition">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i> Tillbaka till ${path}
                     </a>
-                    <h1 class="text-5xl font-black mb-4 tracking-tight">${item.title}</h1>
-                    
-                    <div class="flex flex-wrap gap-2 mb-10">
-                        ${(item.tech || []).map(t => `<span class="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">${t}</span>`).join('')}
-                    </div>
-
+                    <h1 class="text-5xl font-black mb-6 tracking-tight">${item.title}</h1>
                     <div class="prose prose-slate max-w-none">
-                        <p class="text-xl text-slate-600 leading-relaxed mb-8">${item.longDesc || item.body || 'Ingen beskrivning tillgänglig.'}</p>
-                        
-                        <div class="bg-slate-900 rounded-3xl p-8 text-white mt-12">
-                            <h3 class="text-white text-xl font-bold mb-4 italic underline decoration-indigo-500 italic">Projekt Detaljer</h3>
-                            <p class="text-slate-400 mb-6 tracking-wide leading-relaxed italic italic">Här kan du lägga till bilder, kodexempel eller länkar till GitHub.</p>
-                            <a href="${item.github || '#'}" class="inline-flex items-center gap-2 bg-indigo-600 px-6 py-3 rounded-xl font-bold hover:bg-indigo-500 transition">
-                                <i data-lucide="github" class="w-5 h-5"></i> Se källkod
-                            </a>
-                        </div>
+                        <p class="text-xl text-slate-600 leading-relaxed mb-8">${item.longDesc || item.body}</p>
                     </div>
-                </div>`;
+                    ${item.tech ? `
+                        <div class="flex gap-2 mt-10">
+                            ${item.tech.map(t => `<span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest">${t}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
         }
 
-        function updateNav(activePath) {
+        function renderError(msg) {
+            return `<div class="text-center py-20"><h2 class="text-2xl font-bold">${msg}</h2><a href="#home" class="text-indigo-600 underline">Gå hem</a></div>`;
+        }
+
+        function updateNav(path) {
             document.querySelectorAll('.nav-item').forEach(link => {
                 const linkPath = link.getAttribute('href').replace('#', '');
-                link.classList.toggle('nav-link-active', linkPath === activePath);
+                link.classList.toggle('nav-link-active', linkPath === path);
             });
         }
 
-        window.addEventListener('hashchange', router);
-        window.addEventListener('load', router);
+        // --- 4. EVENT LISTENERS ---
+        window.addEventListener('hashchange', handleRoute);
+        window.addEventListener('load', handleRoute);
+
     </script>
 </body>
 </html>

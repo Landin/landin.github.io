@@ -1,0 +1,32 @@
+<div class="max-w-3xl mx-auto px-6 fade-in pb-20">
+    <a href="#projects" class="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 mb-8 transition font-bold">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Tillbaka
+    </a>
+    
+    <div class="bg-indigo-600 h-64 rounded-3xl mb-10 flex items-center justify-center text-white">
+        <i data-lucide="cpu" class="w-20 h-20 opacity-50"></i>
+    </div>
+
+    <h1 class="text-5xl font-black mb-6 tracking-tight">ESP32 IoT Sensor</h1>
+    
+    <div class="prose prose-slate max-w-none">
+        <p class="text-xl text-slate-600 leading-relaxed mb-6">
+            Detta projekt handlar om att bygga en temperatur- och luftfuktighetssensor som skickar data över Wi-Fi.
+        </p>
+        
+        <h2 class="text-2xl font-bold mt-10 mb-4">Komponenter</h2>
+        <ul class="list-disc pl-6 space-y-2 text-slate-700">
+            <li>ESP32 Development Board</li>
+            <li>DHT22 Sensor</li>
+            <li>Jumperkablar</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4">Kodexempel</h2>
+        <pre class="bg-slate-900 text-indigo-300 p-6 rounded-2xl overflow-x-auto text-sm">
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+}
+        </pre>
+    </div>
+</div>
