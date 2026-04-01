@@ -1,32 +1,165 @@
-<div class="max-w-3xl mx-auto px-6 fade-in pb-20">
-    <a href="#projects" class="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 mb-8 transition font-bold">
-        <i data-lucide="arrow-left" class="w-4 h-4"></i> Tillbaka
-    </a>
-    
-    <div class="bg-indigo-600 h-64 rounded-3xl mb-10 flex items-center justify-center text-white">
-        <i data-lucide="cpu" class="w-20 h-20 opacity-50"></i>
+<div class="max-w-4xl mx-auto px-6 pb-20 fade-in">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-slate-400 text-sm font-bold mb-8">
+        <a href="#projects" class="hover:text-indigo-600 transition">Projekt</a>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        <span class="text-slate-900">ESP32-C3-Mini</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">ESP32-C3-Mini-1 Pinout Guide</h1>
+        <p class="text-xl text-slate-600 leading-relaxed max-w-2xl">
+            ESP32-C3 är en singel-kärnig RISC-V baserad MCU med Wi-Fi och Bluetooth 5 (LE). 
+            Här är den fullständiga referensen för utvecklingskortet.
+        </p>
     </div>
 
-    <h1 class="text-5xl font-black mb-6 tracking-tight">ESP32 IoT Sensor</h1>
-    
-    <div class="prose prose-slate max-w-none">
-        <p class="text-xl text-slate-600 leading-relaxed mb-6">
-            Detta projekt handlar om att bygga en temperatur- och luftfuktighetssensor som skickar data över Wi-Fi.
-        </p>
-        
-        <h2 class="text-2xl font-bold mt-10 mb-4">Komponenter</h2>
-        <ul class="list-disc pl-6 space-y-2 text-slate-700">
-            <li>ESP32 Development Board</li>
-            <li>DHT22 Sensor</li>
-            <li>Jumperkablar</li>
-        </ul>
+    <!-- Varning / Info Box -->
+    <div class="bg-amber-50 border-l-4 border-amber-400 p-6 rounded-r-2xl mb-12 flex gap-4 items-start">
+        <i data-lucide="alert-triangle" class="text-amber-500 w-6 h-6 shrink-0 mt-1"></i>
+        <div>
+            <h4 class="font-bold text-amber-900">Viktig information</h4>
+            <p class="text-amber-800 text-sm">ESP32-C3 arbetar med <strong>3.3V logik</strong>. Att koppla 5V direkt till GPIO-pinnarna kan skada chippet permanent.</p>
+        </div>
+    </div>
 
-        <h2 class="text-2xl font-bold mt-10 mb-4">Kodexempel</h2>
-        <pre class="bg-slate-900 text-indigo-300 p-6 rounded-2xl overflow-x-auto text-sm">
-void setup() {
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);
-}
-        </pre>
+    <!-- VISUELL PINOUT REPRESENTATION -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        
+        <!-- Den "Visuella" Dev-boarden -->
+        <div class="relative bg-slate-800 rounded-3xl p-8 shadow-2xl border-4 border-slate-700 min-h-[400px] flex flex-col justify-between">
+            <div class="absolute top-4 left-1/2 -translate-x-1/2 bg-slate-700 px-4 py-1 rounded-b-lg text-[10px] text-slate-400 font-mono tracking-widest uppercase">USB-C Connector</div>
+            
+            <!-- Pin-rader -->
+            <div class="flex justify-between h-full pt-10">
+                <!-- Vänster sida -->
+                <div class="flex flex-col justify-between gap-2">
+                    <div class="group relative flex items-center gap-2">
+                        <div class="w-4 h-2 bg-amber-400 rounded-sm"></div>
+                        <span class="text-[10px] font-mono text-slate-400">3V3</span>
+                    </div>
+                    <div class="group relative flex items-center gap-2">
+                        <div class="w-4 h-2 bg-slate-500 rounded-sm"></div>
+                        <span class="text-[10px] font-mono text-slate-400">GND</span>
+                    </div>
+                    <div class="group relative flex items-center gap-2">
+                        <div class="w-4 h-2 bg-emerald-400 rounded-sm"></div>
+                        <span class="text-[10px] font-mono text-slate-400">GPIO 0 (ADC1)</span>
+                    </div>
+                    <div class="group relative flex items-center gap-2">
+                        <div class="w-4 h-2 bg-emerald-400 rounded-sm"></div>
+                        <span class="text-[10px] font-mono text-slate-400">GPIO 1 (ADC2)</span>
+                    </div>
+                    <div class="group relative flex items-center gap-2">
+                        <div class="w-4 h-2 bg-emerald-400 rounded-sm"></div>
+                        <span class="text-[10px] font-mono text-slate-400">GPIO 2 (ADC3)</span>
+                    </div>
+                </div>
+
+                <!-- Chippet i mitten -->
+                <div class="self-center bg-slate-900 border border-slate-700 w-32 h-32 rounded-xl flex items-center justify-center relative overflow-hidden shadow-inner">
+                    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle,rgba(99,102,241,1)_0%,rgba(0,0,0,0)_70%)]"></div>
+                    <div class="text-center z-10">
+                        <div class="text-[10px] text-indigo-400 font-bold tracking-widest mb-1">ESPRESSIF</div>
+                        <div class="text-white font-black text-xs">C3-MINI-1</div>
+                    </div>
+                </div>
+
+                <!-- Höger sida -->
+                <div class="flex flex-col justify-between gap-2 items-end">
+                    <div class="group relative flex items-center gap-2 text-right">
+                        <span class="text-[10px] font-mono text-slate-400">5V (VIN)</span>
+                        <div class="w-4 h-2 bg-red-500 rounded-sm"></div>
+                    </div>
+                    <div class="group relative flex items-center gap-2 text-right">
+                        <span class="text-[10px] font-mono text-slate-400">GND</span>
+                        <div class="w-4 h-2 bg-slate-500 rounded-sm"></div>
+                    </div>
+                    <div class="group relative flex items-center gap-2 text-right">
+                        <span class="text-[10px] font-mono text-slate-400">GPIO 20 (RX)</span>
+                        <div class="w-4 h-2 bg-blue-400 rounded-sm"></div>
+                    </div>
+                    <div class="group relative flex items-center gap-2 text-right">
+                        <span class="text-[10px] font-mono text-slate-400">GPIO 21 (TX)</span>
+                        <div class="w-4 h-2 bg-blue-400 rounded-sm"></div>
+                    </div>
+                    <div class="group relative flex items-center gap-2 text-right">
+                        <span class="text-[10px] font-mono text-slate-400">GPIO 8 (RGB LED)</span>
+                        <div class="w-4 h-2 bg-pink-400 rounded-sm"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botten-knappar -->
+            <div class="flex justify-around mt-10">
+                <div class="w-6 h-6 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center text-[8px] text-slate-500">BOOT</div>
+                <div class="w-6 h-6 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center text-[8px] text-slate-500">RST</div>
+            </div>
+        </div>
+
+        <!-- FÖRKLARING / LEGENDA -->
+        <div class="space-y-6">
+            <h3 class="text-xl font-bold">Pin-kategorier</h3>
+            <div class="grid grid-cols-1 gap-4">
+                <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-4 h-4 bg-red-500 rounded-md"></div>
+                    <span class="text-sm font-semibold">Power (5V In / VIN)</span>
+                </div>
+                <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-4 h-4 bg-amber-400 rounded-md"></div>
+                    <span class="text-sm font-semibold">Regulated Power (3.3V Out)</span>
+                </div>
+                <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-4 h-4 bg-emerald-400 rounded-md"></div>
+                    <span class="text-sm font-semibold">Digital GPIO / ADC (Analog)</span>
+                </div>
+                <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-4 h-4 bg-blue-400 rounded-md"></div>
+                    <span class="text-sm font-semibold">Serial Communication (TX/RX)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABELL FÖR TEKNISKA SPECIFIKATIONER -->
+    <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white">
+        <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="px-6 py-4 font-bold uppercase tracking-wider text-slate-500">Funktion</th>
+                    <th class="px-6 py-4 font-bold uppercase tracking-wider text-slate-500">Pinnar</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr>
+                    <td class="px-6 py-4 font-semibold">I2C (Default)</td>
+                    <td class="px-6 py-4 font-mono text-indigo-600">SDA: GPIO 8, SCL: GPIO 9</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 font-semibold">SPI (Default)</td>
+                    <td class="px-6 py-4 font-mono text-indigo-600">MOSI: GPIO 7, MISO: GPIO 2, SCK: GPIO 6</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 font-semibold">Inbyggd LED</td>
+                    <td class="px-6 py-4 font-mono text-indigo-600">GPIO 8 (WS2812B RGB)</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 font-semibold">ADC (Analog)</td>
+                    <td class="px-6 py-4 font-mono text-indigo-600">GPIO 0, 1, 2, 3, 4, 5</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Nästa steg -->
+    <div class="mt-16 p-8 bg-indigo-600 rounded-[2rem] text-white flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+            <h3 class="text-2xl font-bold mb-2">Redo att koda?</h3>
+            <p class="text-indigo-100">Läs nästa del om hur du sätter upp Arduino IDE för C3.</p>
+        </div>
+        <a href="#tutorials/esp32-setup" class="bg-white text-indigo-600 px-8 py-3 rounded-xl font-bold hover:bg-indigo-50 transition">
+            Gå till Setup
+        </a>
     </div>
 </div>
